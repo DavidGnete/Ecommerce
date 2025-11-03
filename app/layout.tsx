@@ -1,10 +1,27 @@
-import './globals.css';
-import { lusitana } from './ui/fonts';
+"use client";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body className={`${lusitana.className} antialiased`}>{children}</body>
-    </html>
-  );
+import React from "react";
+import { usePathname } from "next/navigation";
+import "./globals.css";
+import Navigation from "../components/navigation";
+
+export default function RootLayout({
+    children,
+}: Readonly<{
+    children: React.ReactNode;
+}>) {
+    const pathname = usePathname();
+
+     const hideNavbarRoutes = ["/"];
+
+  const shouldHideNavbar = hideNavbarRoutes.includes(pathname);
+
+    return(
+        <html lang="en">
+            <body>
+            {!shouldHideNavbar &&  <Navigation />}
+                {children}
+            </body>
+        </html>
+    );
 }

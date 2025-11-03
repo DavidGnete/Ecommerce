@@ -1,11 +1,27 @@
-version: '3.9'
+version: "3.9"
 
 services:
   app:
     build: .
-    container_name: my-node-app
+    container_name: nextjs-app
     ports:
       - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo:27017/mydatabase
+    depends_on:
+      - mongo
     volumes:
       - .:/app
-    command: npm start
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

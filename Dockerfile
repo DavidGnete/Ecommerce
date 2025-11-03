@@ -1,20 +1,41 @@
-# Use Node 22 official image
-FROM node:22
+# -----------------------------
+# Etapa 1: Construcción (build)
+# -----------------------------
+FROM node:22 AS builder
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files
+# Copiar package.json y lock
 COPY package*.json ./
 
-# Install dependencies
+# Instalar dependencias
 RUN npm install
 
-# Copy all other files
+# Instalar pnpm global (Next.js lo usa internamente)
+RUN npm install -g pnpm
+
+# Copiar todo el código fuente
 COPY . .
 
-# Expose the port your app runs on
+# Compilar Next.js en modo producción
+RUN npm run build
+
+
+# -----------------------------
+# Etapa 2: Producción (runtime)
+# -----------------------------
+FROM node:22
+
+WORKDIR /app
+
+# Copiar archivos compilados desde la etapa anterior
+COPY --from=builder /app ./
+
+# ✅ Instalar pnpm también en runtime para evitar el error del binario SWC
+RUN npm install -g pnpm
+
+# Exponer el puerto
 EXPOSE 3000
 
-# Command to start the app
+# Iniciar la app
 CMD ["npm", "start"]

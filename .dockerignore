@@ -1,0 +1,54 @@
+# Dependencias locales
+node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Archivos de Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Control de versiones
+.git
+.gitignore
+
+# Builds y cachés
+.next
+out
+dist
+.cache
+
+# Archivos de entorno (con credenciales o claves)
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Archivos del editor / sistema
+.vscode
+.idea
+*.swp
+.DS_Store
+Thumbs.db
+
+# Node dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Next.js build output
+.next
+out
+
+# System files
+.DS_Store
+.env.local
+.env.development
+.env.test
+.env.production
+.git
+.gitignore
+.vscode
+*.md

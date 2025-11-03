@@ -1,0 +1,22 @@
+import NextAuth from "next-auth";
+import Google from "next-auth/providers/google";
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
+  providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+  ],
+  secret: process.env.NEXTAUTH_SECRET,
+  pages: {
+    signIn: '/login', // opcional: a dónde ir si no está logueado
+  },
+  callbacks: {
+    async redirect({ url, baseUrl }) {
+      return '/dashboard';
+    },
+  },
+});
+
+export const { GET, POST } = handlers;
