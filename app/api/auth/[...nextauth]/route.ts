@@ -9,9 +9,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  pages: {
-    signIn: '/login', // opcional: a dónde ir si no está logueado
-  },
   callbacks: {
     async redirect({ url, baseUrl }) {
       return '/dashboard';
