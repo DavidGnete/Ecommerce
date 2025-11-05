@@ -27,15 +27,7 @@ export async function POST(req: Request) {
       to: email,
       subject: name ? `welcome to our community, ${name}` : "welcome to our community",
       text:`Thanks ${name} for be part of this new word`,
-      html: ':<b>Thanks for be part of this new word </b><img src="cid:logo@gmail.com alt="afiche"/>',
-      attachments: [
-        {
-          filename: 'afiche.png',
-          path: './public/afiche.png',
-          cid: 'afiche',
-          contentDisposition: 'inline',
-        },
-      ],
+      html: ':<b>Thanks for be part of this new word </b><img src="https://ecommerce-nine-rouge-40.vercel.app/afiche.png" alt="afiche"/>',
     });
 
     return new Response(JSON.stringify({ res: "Mensaje enviado" }), { status: 200 });
