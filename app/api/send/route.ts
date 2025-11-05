@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 
 export async function POST(req: Request) {
   try {
@@ -7,16 +8,19 @@ export async function POST(req: Request) {
 
     const userMail = process.env.MAIL_USER;
     const passMail = process.env.MAIL_PASS;
+    const hostMail = process.env.MAIL_HOST;
+    const portMail = process.env.MAIL_PORT;
+    const secureMail = process.env.MAIL_SECURE;
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true, // importante para puerto 465
+      host: hostMail || 'smtp.gmail.com',
+      port: portMail || 465,
+      secure: secureMail || true, // importante para puerto 465
       auth: {
         user: userMail,
         pass: passMail,
       },
-    });
+    } as SMTPTransport.Options);
 
     await transporter.sendMail({
       from: '"Ecommerce change your own word" <no-reply@appmetrofem.com>',
